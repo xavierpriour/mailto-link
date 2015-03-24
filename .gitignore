@@ -1,0 +1,5 @@
+# package managers
+bower_components/
+
+# IDE
+.idea/workspace.xml
