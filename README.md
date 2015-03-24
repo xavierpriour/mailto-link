@@ -53,22 +53,22 @@ or if links should open a popup on the same page (`popup`).
 
 You can set options in three ways:
 
-1. Pass them as an object to the `init()` function
-  ```javascript
-  options = {
-    action: "redirect"
-  };
-  mailtolink.init(options);
-  ```
-2. Directly set their value on the `mailtolink.opts` object
-  ```javascript
-  mailtolink.opts.action = "redirect";
-  mailtolink.init();
-  ```
-3. On a link, set an attribute called `data-ml-[name of option]`
-  ```html
-  <a href="mailto:test@example.com" data-ml-action="redirect">contact us</a>
-  ```
+- Pass them as an object to the `init()` function
+```javascript
+options = {
+  action: "redirect"
+};
+mailtolink.init(options);
+```
+- Directly set their value on the `mailtolink.opts` object
+```javascript
+mailtolink.opts.action = "redirect";
+mailtolink.init();
+```
+- On a link, set an attribute called `data-ml-[name of option]`
+```html
+<a href="mailto:test@example.com" data-ml-action="redirect">contact us</a>
+```
 
 ## Actions
 
