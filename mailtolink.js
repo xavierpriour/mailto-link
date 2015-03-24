@@ -10,7 +10,7 @@
       action: "redirect",
       url: null,
       new: false,
-      urlThen: window.location,
+      urlThen: window.location.href,
       paramMailto: "mailto",
       paramThen: "then"
     },
@@ -52,8 +52,6 @@
         hasDataLink = true;
       }
     }
-    console.log(optsLink);
-    console.log(optsLink.length);
     // now let's merge the link opts with the opts defined upon creation
     var opts;
     if(hasDataLink) {
@@ -75,7 +73,7 @@
   };
 
   mailtolink.init = function(opts) {
-    mailtolink.opts = jQuery.extend(mailtolink.opts, mailtolink.default, opts);
+    mailtolink.opts = jQuery.extend({}, mailtolink.default, mailtolink.opts, opts);
     $('a[href^="mailto:"]').on("click", mailtolink.handleLink);
   };
 

@@ -25,12 +25,12 @@ Options allow you to specify:
 <script type="text/javascript" src="../mailtolink.js"></script>
 <script type="text/javascript">
   var opts = {
-    action: "redirect",
     url: "http://127.0.0.1:8000/php/free_trial.php",
     urlThen: "https://github.com/xavierpriour/mailto-link",
     paramMailto: "email",
     paramThen: "returnpage"
   };
+  mailtolink.opts.action = "redirect";
   mailtolink.init(opts);
 </script>
 </body>
