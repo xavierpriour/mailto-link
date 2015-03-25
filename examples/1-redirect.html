@@ -18,7 +18,7 @@ Options allow you to specify:
   </ul>
 </p>
 <h2>Demo</h2>
-<p>Click to mail <a href="mailto:test@example.com?subject=toto" data-ml-url="http://timetom.com/" data-ml-new="true">test@example.com</a></p>
+<p>Click to mail <a href="mailto:test@example.com?subject=toto" data-ml-url="http://google.com/" data-ml-new="true">test@example.com</a></p>
 
 <script src="../bower_components/jquery/dist/jquery.js"></script>
 <script src="../bower_components/uri.js/src/URI.js"></script>
@@ -28,10 +28,12 @@ Options allow you to specify:
     url: "http://127.0.0.1:8000/php/free_trial.php",
     urlThen: "https://github.com/xavierpriour/mailto-link",
     paramMailto: "email",
-    paramThen: "returnpage"
+    paramThen: false
   };
   mailtolink.opts.action = "redirect";
-  mailtolink.init(opts);
+  $(document).ready(function(){
+    mailtolink.init(opts);
+  });
 </script>
 </body>
 </html>

@@ -17,64 +17,79 @@
     opts: {}
   };
 
-  function redirect(mailto, opts) {
+  function getRedirectUrl(mailto, opts) {
     var urlMailto = URI(mailto);
     // build redirect url > start with supplied url
     var urlRedirect = URI(opts.url);
     // add any query set on the mailto
     var mailtoQuery = urlMailto.query(true);
-    for(var key in mailtoQuery) {
+    for (var key in mailtoQuery) {
       urlRedirect.setQuery(key, mailtoQuery[key]);
     }
     // then add the parameters
-    urlRedirect.setQuery(opts.paramMailto, urlMailto.path());
-    urlRedirect.setQuery(opts.paramThen, opts.urlThen);
+    if(opts.paramMailto) { urlRedirect.setQuery(opts.paramMailto, urlMailto.path()); }
+    if(opts.paramThen) { urlRedirect.setQuery(opts.paramThen, opts.urlThen); }
 
     var href = urlRedirect.href();
+    return href;
+  }
+
+  function redirect(mailto, opts) {
+    var href = getRedirectUrl(mailto, opts);
     if (opts.new) {
       window.open(href, '_blank');
     } else {
       window.location = href;
     }
-    console.log(href);
+    //console.log(href);
   };
 
-  mailtolink.handleLink = function(evt) {
-    var mailto = $(this).attr("href");
-
-    // look for data-ml-* attributes to override opts
+  function optsFromLink(node, opts) {
     var hasDataLink = false;
     var optsLink = {};
-    for(var k in mailtolink.opts) {
-      var val = $(this).attr("data-ml-"+k);
-      if(val) {
-        optsLink[k] = val;
-        hasDataLink = true;
+    var prefix = "data-ml-";
+    $.each(node.attributes, function() {
+      if(this.specified) {
+        var name = this.name;
+        if(name.lastIndexOf("data-ml-")===0) {
+          name = name.slice(prefix.length);
+          optsLink[name] = this.value;
+          hasDataLink = true;
+        }
       }
-    }
-    // now let's merge the link opts with the opts defined upon creation
-    var opts;
+    });
+    var result = {};
     if(hasDataLink) {
-      opts = jQuery.extend({}, mailtolink.opts, optsLink);
+      result = $.extend({}, opts, optsLink);
     } else {
-      opts = mailtolink.opts;
+      result = opts;
     }
+    return result;
+  }
 
-    // finally dispatch to proper function depending on action
+  function updateLink(jq) {
+    var opts = optsFromLink(jq[0], mailtolink.opts);
+    var mailto = jq.attr("href");
     var action = opts.action;
     switch(action) {
       case "redirect":
-        redirect(mailto, opts);
+        var href = getRedirectUrl(mailto, opts);
+        jq.attr("href", href);
+        if(opts.new) {jq.attr("target", "_blank");}
         break;
       default:
         console.log("Unknown action: "+action);
     }
-    return false;
-  };
+  }
 
   mailtolink.init = function(opts) {
-    mailtolink.opts = jQuery.extend({}, mailtolink.default, mailtolink.opts, opts);
-    $('a[href^="mailto:"]').on("click", mailtolink.handleLink);
+    // 1. load options
+    mailtolink.opts = $.extend({}, mailtolink.default, mailtolink.opts, opts);
+    // 2. modify links
+    //$('a[href^="mailto:"]').on("click", handleLink);
+    $('a[href^="mailto:"]').each(function(index){
+      updateLink($(this));
+    });
   };
 
   return mailtolink;

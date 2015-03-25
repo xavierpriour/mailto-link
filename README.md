@@ -82,15 +82,15 @@ This is done by setting the option `action` to `redirect`.
 
 Acceptable options are:
 
-- url (string, mandatory): the URL of the page to redirect to. This url can include parameters.
-- new (boolean, optional): if `true`, target URL will be displayed in a new window/tab,
+- `url` (string, mandatory): the URL of the page to redirect to. This url can include parameters.
+- `new` (boolean, optional): if `true`, target URL will be displayed in a new window/tab,
 otherwise it will use the current window/tab.
-- urlThen (string, optional, defaults to current URL): a second URL,
+- `urlThen` (string, optional, defaults to current URL): a second URL,
 typically to tell to contact form where to redirect after mail has been posted.
-- paramMailto (string, optional, defaults to 'mailto'): the name of the parameter passed to the url containing the
-email address specified in the 'mailto:'.
-- paramThen (string, optional, defaults to 'then'): the name of the parameter passed to the url containing the
-urlThen option.
+- `paramMailto` (string, optional, defaults to 'mailto'): the name of the parameter passed to the url containing the
+email address specified in the 'mailto:'. Set to `false` if you don't want the parameter to be passed.
+- `paramThen` (string, optional, defaults to 'then'): the name of the parameter passed to the url containing the
+urlThen option. Set to `false` if you don't want the parameter to be passed.
 
 ### Popup
 **Coming Soon, stay tuned**
