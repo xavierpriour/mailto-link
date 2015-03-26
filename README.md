@@ -27,8 +27,6 @@ All options can be overridden on a link basis by setting data-ml-xxx attributes.
 For more usages, see the `examples` directory.
 
 ## Install
-**Bower package not yet published, please download then: bower install**
-
 Simplest way is through [Bower](http://bower.io/):
 ```
 bower install mailto-link --save
