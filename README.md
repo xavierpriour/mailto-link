@@ -35,8 +35,13 @@ bower install mailto-link --save
 ```
 Then concatenate and minify all the bower components and include the resulting file in your page.
 
-If you want to do it manually, the package depends on `jQuery` and `URI.js`, so you should include all three files
-(see in `examples` directory how this is done).
+If you want to do it manually, the package depends on:
+
+- `jQuery` for DOM manipulation and options merging (`$.extend`)
+- `URI.js` for mailto URI parsing
+- `bootstrap` for styling and popup
+
+So you should include all three files (see in `examples` directory how this is done).
 
 
 ## Usage and options settings
