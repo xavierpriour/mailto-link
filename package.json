@@ -1,0 +1,35 @@
+{
+  "name": "mailto-link",
+  "version": "1.0.0",
+  "description": "turn 'mailto:' links into contact forms (and more)",
+  "main": "mailtolink.js",
+  "directories": {
+    "example": "examples",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xavierpriour/mailto-link.git"
+  },
+  "keywords": [
+    "mailto",
+    "mail",
+    "form",
+    "contact",
+    "static"
+  ],
+  "author": "Xavier Priour <xavier.priour@bubblyware.com> (http://bubblyware.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/xavierpriour/mailto-link/issues"
+  },
+  "homepage": "https://github.com/xavierpriour/mailto-link",
+  "devDependencies": {
+    "chai": "^2.2.0",
+    "dalekjs": "0.0.9",
+    "mocha": "^2.2.1"
+  }
+}
