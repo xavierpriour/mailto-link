@@ -1,6 +1,6 @@
 {
   "name": "mailto-link",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "homepage": "https://github.com/xavierpriour/mailto-link",
   "authors": [
     "Xavier Priour <xavier.priour@bubblyware.com>"
@@ -28,5 +28,10 @@
     "jquery": "~2.1.3",
     "uri.js": "~1.14.2",
     "bootstrap": "~3.3.4"
+  },
+  "overrides": {
+    "uri.js": {
+      "main": "URI.js"
+    }
   }
 }
