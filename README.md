@@ -118,3 +118,15 @@ More precisely:
   4. for popup, add a non-visible div for the popup form, and an 'on click' action to toggle its visibility
 
 ### Testing
+
+
+### Contributing
+- (if needed, install git), fork the repo, clone your fork > see https://help.github.com/articles/fork-a-repo/
+- (if needed, install node) > see https://github.com/joyent/node/wiki/Installation
+- in your folder run `npm install`
+- (if needed, install bower) > see http://bower.io/#install-bower
+- in your folder run `bower install`
+- **work in progress** run tests to check everything is ok: `grunt test`
+- now make your changes
+- please include tests for all your changes - we use [Mocha](http://mochajs.org/), [Chai](http://chaijs.com/), and [DalekJS](http://dalekjs.com/)
+- then open a pull request > see https://help.github.com/articles/using-pull-requests/ (we use the fork&pull model)
