@@ -1,18 +1,18 @@
-(function (root, factory) {
+(function(root, factory) {
   'use strict';
   // Browser globals (root is window)
   root.mailtolink = factory(root);
-} (this, function (root) {
+} (this, function(root) {
   'use strict';
 
   var mailtolink = {
     default: {
-      action: "redirect",
+      action: 'redirect',
       url: null,
       new: false,
       urlThen: window.location.href,
-      paramMailto: "mailto",
-      paramThen: "then"
+      paramMailto: 'mailto',
+      paramThen: 'then'
     },
     opts: {}
   };
@@ -27,8 +27,8 @@
       urlRedirect.setQuery(key, mailtoQuery[key]);
     }
     // then add the parameters
-    if(opts.paramMailto) { urlRedirect.setQuery(opts.paramMailto, urlMailto.path()); }
-    if(opts.paramThen) { urlRedirect.setQuery(opts.paramThen, opts.urlThen); }
+    if (opts.paramMailto) { urlRedirect.setQuery(opts.paramMailto, urlMailto.path()); }
+    if (opts.paramThen) { urlRedirect.setQuery(opts.paramThen, opts.urlThen); }
 
     var href = urlRedirect.href();
     return href;
@@ -42,16 +42,16 @@
       window.location = href;
     }
     //console.log(href);
-  };
+  }
 
   function optsFromLink(node, opts) {
     var hasDataLink = false;
     var optsLink = {};
-    var prefix = "data-ml-";
+    var prefix = 'data-ml-';
     $.each(node.attributes, function() {
-      if(this.specified) {
+      if (this.specified) {
         var name = this.name;
-        if(name.lastIndexOf("data-ml-")===0) {
+        if (name.lastIndexOf('data-ml-') === 0) {
           name = name.slice(prefix.length);
           optsLink[name] = this.value;
           hasDataLink = true;
@@ -59,7 +59,7 @@
       }
     });
     var result = {};
-    if(hasDataLink) {
+    if (hasDataLink) {
       result = $.extend({}, opts, optsLink);
     } else {
       result = opts;
@@ -69,16 +69,16 @@
 
   function updateLink(jq) {
     var opts = optsFromLink(jq[0], mailtolink.opts);
-    var mailto = jq.attr("href");
+    var mailto = jq.attr('href');
     var action = opts.action;
-    switch(action) {
-      case "redirect":
+    switch (action) {
+      case 'redirect':
         var href = getRedirectUrl(mailto, opts);
-        jq.attr("href", href);
-        if(opts.new) {jq.attr("target", "_blank");}
+        jq.attr('href', href);
+        if (opts.new) {jq.attr('target', '_blank');}
         break;
       default:
-        console.log("Unknown action: "+action);
+        console.log('Unknown action: ' + action);
     }
   }
 
@@ -87,18 +87,9 @@
     mailtolink.opts = $.extend({}, mailtolink.default, mailtolink.opts, opts);
     // 2. modify links
     //$('a[href^="mailto:"]').on("click", handleLink);
-    $('a[href^="mailto:"]').each(function(index){
+    $('a[href^="mailto:"]').each(function(index) {
       updateLink($(this));
     });
   };
-
   return mailtolink;
 }));
-
-
-
-
-
-
-
-
