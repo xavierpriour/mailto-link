@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>mailto-link example 2: popup another page (your contact form)</title>
+  <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+</head>
+<body>
+<div class="container">
+  <h1>mailto-link example 2: popup</h1>
+  <p>
+  This example shows how to transform your "mailto:" links so that they open up a popup with a contact form.
+  <h2>Demo</h2>
+  <p>Click to mail <a href="mailto:test@example.com?subject=toto" data-ml-url="bootstrap-popup.html" data-ml-formSelector="">test@example.com</a></p>
+  <p>Click to mail <a href="mailto:me.too@example.com">me.too@example.com</a></p>
+  <div id="popup"></div>
+</div>
+
+<script src="../bower_components/jquery/dist/jquery.min.js"></script>
+<script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="../bower_components/uri.js/src/URI.js"></script>
+<script type="text/javascript" src="../mailtolink.js"></script>
+<script type="text/javascript">
+  var opts = {
+    url: "contact.html?text=blabla",
+    formSelector: "#mailForm",
+    paramMailto: "email"
+  };
+  mailtolink.opts.action = "popup";
+  $(document).ready(function(){
+    mailtolink.init(opts);
+  });
+</script>
+</body>
+</html>

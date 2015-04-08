@@ -4,11 +4,9 @@ Javascript library to turn 'mailto:' links into popup contact forms (and more) -
 
 ## Executive Summary
 Use this library to transform your 'mailto:' links into contact forms (popup or simple redirection).
-The forms can be either on your site, or an hosted mail form services (especially useful for static sites).
+The forms can be either on your site, ~~or an hosted mail form services (especially useful for static sites)~~ (**work in progress**).
 It lets you code your pages without worrying about how to contact you,
 then enhance them in whatever way you prefer.
-
-**This version only supports redirection, popup is in the works**
 
 Install using `bower` package manager.
 Usage is pretty simple: include the script, and call its `init()` method passing some options.
@@ -66,12 +64,13 @@ options = {
 };
 mailtolink.init(options);
 ```
-- Directly set their value on the `mailtolink.opts` object
+- Directly set their value on the `mailtolink.opts` object before (acts as default option) or after it has been initialized
 ```javascript
-mailtolink.opts.action = "redirect";
+mailtolink.opts.url = "contact.html";
 mailtolink.init();
+mailtolink.opts.action = "redirect";
 ```
-- On a link, set an attribute called `data-ml-[name of option]`
+- On a link, set an attribute called `data-ml-[name of option]` - this overrides prior definition 
 ```html
 <a href="mailto:test@example.com" data-ml-action="redirect">contact us</a>
 ```
@@ -100,13 +99,28 @@ email address specified in the 'mailto:'. Set to `false` if you don't want the p
 urlThen option. Set to `false` if you don't want the parameter to be passed.
 
 ### Popup
-**Coming Soon, stay tuned**
+The link will open a popup dialog.
+The content of the popup is another page on the same server, that will be downloaded through AJAX.
+It is possible to specify a sub-part of the page to use, that way you can re-use your full-blown contact form
+(see `examples/2-redirect.html`).
+Parameters set either in `options.url` or the `mailto:` link will be applied to the form, if they match.
+So you can use url to set subject, text, or any parameter (including hidden ones).
+Those will then be posted with the form.
+
+This is done by setting the option `action` to `popup`.
+
+Acceptable options are:
+
+- `url` (string, mandatory): the URL of the page containing the form. This url can include parameters.
+- `formSelector` (string, optional, defaults to 'form'): a jQuery selector to specify which part of the loaded
+url should be used for the contact form. The default is fine if your contact page only contains one form,
+otherwise you might need to be more precise. 
 
 
 ## Technical documentation
 
 ### Inner workings
-The basic idea is that upon page load, the script changes the DOM elements that are 'mailto:' links.
+The basic idea is that upon page load, the script modifies the DOM elements that are 'mailto:' links.
 
 More precisely:
 
@@ -114,11 +128,18 @@ More precisely:
 2. Then it goes through all DOM elements with an `href` attribute starting with 'mailto:', and:
   1. reads all `data-ml-` attributes, and complete / override global options with their value
   2. then change the element to get the proper behavior (depending on the `action` option)
-  3. for redirect, rewrite the `href` attribute (and the `target` if requesting a new tab)
-  4. for popup, add a non-visible div for the popup form, and an 'on click' action to toggle its visibility
+
+For redirect, we rewrite the `href` attribute (and the `target` if requesting a new tab)
+
+For popup, we:
+
+1. add a non-visible div for the popup form
+2. load the popup form into that div with AJAX
+3. apply request parameters to the loaded form
+4. add an 'onClick' action to toggle form visibility
 
 ### Testing
-
+**work in progress**
 
 ### Contributing
 - (if needed, install git), fork the repo, clone your fork > see https://help.github.com/articles/fork-a-repo/
