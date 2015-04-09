@@ -21,12 +21,12 @@ module.exports = function(grunt) {
     },
 
     // runs a local php server
-    connect: {
+    php: {
       examples: {
         options: {
           port: 1776,
           //base: 'examples',
-          open: 'http://localhost:1776/examples/1-redirect.html',
+          open: 'examples/2-popup.html',
           livereload: 35739
         }
       }
@@ -35,16 +35,22 @@ module.exports = function(grunt) {
     // Watches files for changes and runs tasks based on the changed files
     watch: {
       options: {
-        spawn: false,
+        // we don't want to lose the environment, specially the stage
+        spawn: false
       },
       gruntfile: {
         files: ['Gruntfile.js']
+        // no tasks, this automatically triggers a watch restart
       },
-      js: {
-        files: ['mailtolink.js', 'examples/*.html'],
+      reload: {
+        files: ['mailtolink.js', 'examples/*.html', 'bower.json'],
         options: {
           livereload: 35739
         }
+      },
+      js: {
+        files: jsFiles,
+        tasks: ['test']
       }
     }
   });
@@ -63,12 +69,12 @@ module.exports = function(grunt) {
   ]);
 
   grunt.registerTask('serve', [
-    'connect:examples',
+    'php:examples',
     'watch',
   ]);
 
   grunt.registerTask('default', [
-    //'build',
+    'build',
     'test',
     'serve'
   ]);

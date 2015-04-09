@@ -1,10 +1,11 @@
 # mailto-link
-Javascript library to turn 'mailto:' links into popup contact forms (and more) - inspired by [mailto.ninja](http://mailto.ninja/)
+Javascript library to turn 'mailto:' links into popup contact forms (and more)
+- inspired by [mailto.ninja](http://mailto.ninja/).
 
+Requires [Bootstrap](http://getbootstrap.com/) and [jQuery](http://jquery.com/) 
 
 ## Executive Summary
 Use this library to transform your 'mailto:' links into contact forms (popup or simple redirection).
-The forms can be either on your site, ~~or an hosted mail form services (especially useful for static sites)~~ (**work in progress**).
 It lets you code your pages without worrying about how to contact you,
 then enhance them in whatever way you prefer.
 
@@ -13,11 +14,10 @@ Usage is pretty simple: include the script, and call its `init()` method passing
 All options can be overridden on a link basis by setting `data-ml-[option_name]` attributes.
 
 ```html
-<a href="mailto:test@example.com?subject=test" data-ml-url="http://my_form_url.com/">test@example.com</a>
+<a href="mailto:test@example.com?subject=test" data-ml-url="my_form_url.html/">test@example.com</a>
 <script type="text/javascript">
   var opts = {
-    action: "redirect",
-    new: true,
+    action: "popup"
   };
   mailtolink.init(opts);
 </script>
@@ -43,7 +43,7 @@ So you should include all three files (see in `examples` directory how this is d
 
 
 ## Usage and options settings
-Basic usage:
+Basic usage: add the below code to all pages (just including the file is **not** sufficient)
 ```javascript
 mailtolink.init()
 ```
@@ -53,7 +53,7 @@ Its `init()` function will initialize the library and transform all links with a
 The transformation is based on the options that were set.
 The main option is `action`, to indicate if links should be replaced with a link to another page (`redirect`)
 or if links should open a popup on the same page (`popup`).
- Acceptable options are described in the appropriate action section below.
+Acceptable options are described in the appropriate action section below.
 
 You can set options in three ways (possibly at the same time):
 
@@ -89,18 +89,21 @@ This is done by setting the option `action` to `redirect`.
 Acceptable options are:
 
 - `url` (string, mandatory): the URL of the page to redirect to. This url can include parameters.
-- `new` (boolean, optional): if `true`, target URL will be displayed in a new window/tab,
+- `new` (boolean, optional, defaults to `false`): if `true`, target URL will be displayed in a new window/tab,
 otherwise it will use the current window/tab.
 - `urlThen` (string, optional, defaults to current URL): a second URL,
 typically to tell to contact form where to redirect after mail has been posted.
-- `paramMailto` (string, optional, defaults to 'mailto'): the name of the parameter passed to the url containing the
+- `paramMailto` (string, optional, defaults to `'mailto'`): the name of the parameter passed to the url containing the
 email address specified in the 'mailto:'. Set to `false` if you don't want the parameter to be passed.
-- `paramThen` (string, optional, defaults to 'then'): the name of the parameter passed to the url containing the
+- `paramThen` (string, optional, defaults to `'then'`): the name of the parameter passed to the url containing the
 urlThen option. Set to `false` if you don't want the parameter to be passed.
 
 ### Popup
 The link will open a popup dialog.
 The content of the popup is another page on the same server, that will be downloaded through AJAX.
+This page should include a regular form posting to a proper mailer page.
+Our library will replace that with an AJAX posting and popup closing.
+ 
 It is possible to specify a sub-part of the page to use, that way you can re-use your full-blown contact form
 (see `examples/2-redirect.html`).
 Parameters set either in `options.url` or the `mailto:` link will be applied to the form, if they match.
@@ -112,10 +115,30 @@ This is done by setting the option `action` to `popup`.
 Acceptable options are:
 
 - `url` (string, mandatory): the URL of the page containing the form. This url can include parameters.
-- `formSelector` (string, optional, defaults to 'form'): a jQuery selector to specify which part of the loaded
+For a simple functional page, you can use the included `bootstrap-popup.html`.
+- `formSelector` (string, optional, defaults to `'form'`): a jQuery selector to specify which part of the loaded
 url should be used for the contact form. The default is fine if your contact page only contains one form,
 otherwise you might need to be more precise. 
+- `paramMailto` (string, optional, defaults to `'mailto'`): name of the field (can be hidden or missing) in the
+form that will hold the mailto link address
+- `title` (string, optional, defaults to `null`): the title of the modal to display. If none is supplied,
+modal will be displayed as is.
+- `urlPost` (string, optional, defaults to `null`): the url to which the contact form should post.
+This lets you reuse the same contact form to post to different url for different links.
+If unspecified, it will use the form `action` attribute.
+- `msgSelector` (string, optional, defaults to `'#mailto-msg'`): a selector to the element that will display the 
+AJAX result message.
 
+The html that is loaded must meet certain criteria:
+
+- fields that should be input from url parameters must have their `name` attribute set to the exact parameter name.
+- the element containing the modal title must have a CSS class of `modal-title`
+- the part of the document matching `formSelector` must include exactly one form. The form can be the element or one
+of its children
+- that form must include exactly one element `<input type="submit">`
+- the first `input` field of your form should be a uses-visible one, not a `hidden`
+
+Also note that the form does **not** currently check required fields.
 
 ## Technical documentation
 
