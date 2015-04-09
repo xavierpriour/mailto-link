@@ -152,7 +152,8 @@
         mailtolink.fillFromQuery($form, oldHref);
         $form.find('input[type="submit"]').click({$form: $form, id: id, opts: options}, submitBootstrapModal);
       });
-    $fragment.insertAfter($link);
+    //$fragment.insertAfter($link);
+    $fragment.prependTo('body');
     // wire mailto: link to act as popup control
     $fragment.modal({show:false});
     $fragment.on('shown.bs.modal', function(e) {
