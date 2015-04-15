@@ -24,10 +24,13 @@ module.exports = function(grunt) {
     php: {
       examples: {
         options: {
-          port: 1776,
-          //base: 'examples',
+          port: 1789,
+          directives: {
+            sendmail_path:'node_modules/catchmail/bin/cli.js'
+          },
+          //open: '/',
           open: 'examples/2-popup.html',
-          livereload: 35739
+          livereload: 35749
         }
       }
     },
@@ -45,7 +48,7 @@ module.exports = function(grunt) {
       reload: {
         files: ['mailtolink.js', 'examples/*.html', 'bower.json'],
         options: {
-          livereload: 35739
+          livereload: 35749
         }
       },
       js: {

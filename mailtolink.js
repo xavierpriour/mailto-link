@@ -111,7 +111,7 @@
       data: data,
       method: 'POST',
       success: function(data, textStatus, jqXHR) {
-        //console.log('res=' + data);
+        console.log('mail result = ' + data);
         if (opts.msgSelector) {
           var $msg = $(opts.msgSelector);
           $msg.removeClass('alert alert-success alert-info alert-warning alert-danger');

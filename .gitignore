@@ -4,6 +4,3 @@
 # package managers
 bower_components/
 node_modules/
-
-# IDE
-.idea/workspace.xml
