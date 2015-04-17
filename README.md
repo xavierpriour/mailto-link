@@ -162,7 +162,16 @@ For popup, we:
 4. add an 'onClick' action to toggle form visibility
 
 ### Testing
-**work in progress**
+We use:
+
+- [CasperJS](http://casperjs.org/) to perform headless browser testing
+- [Mocha](http://mochajs.org/) as the test framework
+- [Chai](http://chaijs.com/) as the assertion library
+- Grunt to launch test servers (php and mail) then run test suites
+- a bunch of libraries to make all the above work together
+
+In the end, testing is easy: `grunt test`.
+
 
 ### Contributing
 - (if needed, install git), fork the repo, clone your fork > see https://help.github.com/articles/fork-a-repo/
@@ -170,7 +179,7 @@ For popup, we:
 - in your folder run `npm install`
 - (if needed, install bower) > see http://bower.io/#install-bower
 - in your folder run `bower install`
-- **work in progress** run tests to check everything is ok: `grunt test`
+- run tests to check everything is ok and start continuous integration: `grunt`
 - now make your changes
-- please include tests for all your changes - we use [Mocha](http://mochajs.org/), [Chai](http://chaijs.com/), and [DalekJS](http://dalekjs.com/)
+- please include tests for all your changes
 - then open a pull request > see https://help.github.com/articles/using-pull-requests/ (we use the fork&pull model)

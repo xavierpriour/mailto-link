@@ -3,7 +3,8 @@
 module.exports = function(grunt) {
   require('load-grunt-tasks')(grunt); // Load grunt tasks automatically
 
-  var jsFiles = ['Gruntfile.js', 'mailtolink.js'];
+  var jsFiles = ['Gruntfile.js', 'mailtolink.js', 'test/**/*.js'];
+  var nonJsFiles = ['bootstrap-popup.html', 'mail-post.php'];
   // Define the configuration for all the tasks
   grunt.initConfig({
     jshint: {
@@ -20,13 +21,39 @@ module.exports = function(grunt) {
       src: jsFiles
     },
 
+    mocha_casperjs: {
+      all: {
+        src: ['test/mocha-casper/*.js']
+      }
+    },
+
+    //casperjs: {
+    //  all: {
+    //    files: ['test/casper/test.js']
+    //  }
+    //},
+
+    maildev: {
+      serve: {},
+      test: {}
+    },
+
     // runs a local php server
     php: {
+      test: {
+        options: {
+          port: 1999,
+          directives: {
+            sendmail_path: 'catchmail'
+          },
+          //silent: true, // messes up Dalek output otherwise!
+        }
+      },
       examples: {
         options: {
           port: 1789,
           directives: {
-            sendmail_path:'node_modules/catchmail/bin/cli.js'
+            sendmail_path:'catchmail'
           },
           //open: '/',
           open: 'examples/2-popup.html',
@@ -46,14 +73,14 @@ module.exports = function(grunt) {
         // no tasks, this automatically triggers a watch restart
       },
       reload: {
-        files: ['mailtolink.js', 'examples/*.html', 'bower.json'],
+        files: jsFiles.concat(nonJsFiles, ['examples/*.html', 'bower.json']),
         options: {
           livereload: 35749
         }
       },
       js: {
-        files: jsFiles,
-        tasks: ['test']
+        files: jsFiles.concat(nonJsFiles),
+        tasks: ['test-run']
       }
     }
   });
@@ -66,12 +93,24 @@ module.exports = function(grunt) {
     //'symlink',
   ]);
 
-  grunt.registerTask('test', [
+  grunt.registerTask('test-serve', [
+    'maildev:test',
+    'php:test',
+  ]);
+
+  grunt.registerTask('test-run', [
     'jshint',
     'jscs',
+    'mocha_casperjs'
+  ]);
+
+  grunt.registerTask('test', [
+    'test-serve',
+    'test-run',
   ]);
 
   grunt.registerTask('serve', [
+    'maildev:serve',
     'php:examples',
     'watch',
   ]);
@@ -79,6 +118,6 @@ module.exports = function(grunt) {
   grunt.registerTask('default', [
     'build',
     'test',
-    'serve'
+    'watch'
   ]);
 };

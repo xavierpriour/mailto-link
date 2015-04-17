@@ -43,7 +43,7 @@ class MailPost {
     $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
     $message = "<html><body>$body</body></html>";
     $result = array();
-    error_log("sending mail to $this->mailTo");
+    // error_log("sending mail to $this->mailTo");
     if (mail($this->mailTo, $this->subject, $message, $headers)) {
       $result['status'] = 'success';
     } else {
@@ -57,5 +57,9 @@ class MailPost {
 
 $mailPost = new MailPost($_POST, $to);
 $result = $mailPost->send();
-echo(json_encode($result));
+if(isset($_POST['then'])) {
+  header('Location: '.$_POST['then']);
+} else {
+  echo(json_encode($result));
+}
 ?>
