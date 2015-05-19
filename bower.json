@@ -25,9 +25,9 @@
     ".idea"
   ],
   "dependencies": {
-    "jquery": "~2.1.3",
-    "uri.js": "~1.14.2",
-    "bootstrap": "~3.3.4"
+    "jquery": "^2.1.3",
+    "uri.js": "^1.14.2",
+    "bootstrap": "^3.3.4"
   },
   "overrides": {
     "uri.js": {
