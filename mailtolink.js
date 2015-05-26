@@ -130,7 +130,6 @@
   }
 
   function insertBootstrapCode($link, id, options) {
-
     //$('<div id="' + id + '" style="display:none;"></div>')
     // add Bootstrap-specific marking to mailto: link
     var oldHref = new URI($link.attr('href'));
@@ -205,6 +204,7 @@
     if (!selector) {
       selector = mailtolink.opts.formSelector;
     }
+
     var $jq;
     if (typeof selector === 'string') {
       $jq = $(selector);
