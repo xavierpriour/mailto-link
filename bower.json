@@ -15,8 +15,13 @@
   ],
   "license": "MIT",
   "ignore": [
-    "!dist/**",
-    "*"
+    ".*",
+    "*.*",
+    "bower_components",
+    "config",
+    "examples",
+    "node_modules",
+    "test"
   ],
   "dependencies": {
     "jquery": "^2.1.3",
