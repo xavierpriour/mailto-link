@@ -15,8 +15,7 @@
   ],
   "license": "MIT",
   "ignore": [
-    ".*",
-    "*.*",
+    "/*",
     "bower_components",
     "config",
     "examples",
