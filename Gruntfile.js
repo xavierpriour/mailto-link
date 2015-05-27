@@ -27,12 +27,6 @@ module.exports = function(grunt) {
       }
     },
 
-    //casperjs: {
-    //  all: {
-    //    files: ['test/casper/test.js']
-    //  }
-    //},
-
     maildev: {
       serve: {},
       test: {}
@@ -46,7 +40,7 @@ module.exports = function(grunt) {
           directives: {
             sendmail_path: 'catchmail'
           },
-          //silent: true, // messes up Dalek output otherwise!
+          silent: true, // messes up Dalek output otherwise!
         }
       },
       examples: {
