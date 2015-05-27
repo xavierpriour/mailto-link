@@ -1,6 +1,6 @@
 {
   "name": "mailto-link",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "turn 'mailto:' links into contact forms (and more)",
   "main": "mailtolink.js",
   "directories": {
