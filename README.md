@@ -182,4 +182,5 @@ In the end, testing is easy: `grunt test`.
 - run tests to check everything is ok and start continuous integration: `grunt`
 - now make your changes
 - please include tests for all your changes
+- build files for bower: `grunt publish`
 - then open a pull request > see https://help.github.com/articles/using-pull-requests/ (we use the fork&pull model)
