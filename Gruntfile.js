@@ -22,7 +22,7 @@ module.exports = function(grunt) {
 
     // Empties folders to start fresh
     clean: {
-      all: ['<%= config.dist %>/*', '<%= config.temp %>/*'],
+      all: ['<%= config.dist %>/*', '<%= config.temp %>/*', 'dist/**'],
       stage: [
         // Grunt has a bug, won't remove the symlink if its target no longer exists
         '<%= config.dist %>/<%= stg.stage %>/current',
@@ -60,7 +60,25 @@ module.exports = function(grunt) {
             src: 'examples/**/*',
           },
         ]
-      }
+      },
+      publish: {
+        files: [
+          {
+            expand: true,
+            cwd: '<%= dist %>/',
+            src: '**',
+            dest: 'dist/'
+          },
+          {
+            expand: true,
+            src: [
+              'LICENSE',
+              'README.md'
+            ],
+            dest: 'dist/'
+          }
+        ]
+      },
     },
 
     jscs: {
@@ -103,7 +121,7 @@ module.exports = function(grunt) {
       examples: {
         options: {
           port: 1789,
-          base: '<%= dist %>',
+          base: '.',
           directives: {
             sendmail_path:'catchmail'
           },
@@ -212,6 +230,13 @@ module.exports = function(grunt) {
     'maildev:serve',
     'php:examples',
     'watch',
+  ]);
+
+  grunt.registerTask('publish', [
+    'stage:prod',
+    'clean:all',
+    'build',
+    'copy:publish',
   ]);
 
   grunt.registerTask('default', [

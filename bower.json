@@ -6,7 +6,7 @@
     "Xavier Priour <xavier.priour@bubblyware.com>"
   ],
   "description": "turn 'mailto:' links into contact forms (and more)",
-  "main": "mailtolink.js",
+  "main": "dist/mailtolink.min.js",
   "keywords": [
     "mailto",
     "mail",
@@ -16,13 +16,12 @@
   ],
   "license": "MIT",
   "ignore": [
-    "**/.*",
-    "node_modules",
+    "*",
     "bower_components",
-    "test",
-    "tests",
+    "config",
     "examples",
-    ".idea"
+    "node_modules",
+    "test"
   ],
   "dependencies": {
     "jquery": "^2.1.3",
