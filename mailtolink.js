@@ -2,7 +2,7 @@
   'use strict';
   // Browser globals (root is window)
   root.mailtolink = factory(root);
-} (this, function(root) {
+}(this, function(root) {
   'use strict';
 
   var mailtolink = {
@@ -56,7 +56,8 @@
 
   /**
    * returns the properly capitalized option name of supplied parameter - or name itself if none was found
-   * @param name
+   *
+   * @param {String} name
    */
   function optionName(name) {
     var result = name;
@@ -154,7 +155,7 @@
     //$fragment.insertAfter($link);
     $fragment.prependTo('body');
     // wire mailto: link to act as popup control
-    $fragment.modal({show:false});
+    $fragment.modal({show: false});
     $fragment.on('shown.bs.modal', function(e) {
       $(e.target).find('input, textarea').first().focus();
     });
@@ -182,7 +183,7 @@
   /**
    * Initializes mailtolink object and modify mailto: links of the current page.
    *
-   * @param opts Object options to use during init
+   * @param {Object} opts options to use during init
    */
   mailtolink.init = function(opts) {
     // 1. load options
@@ -197,8 +198,8 @@
   /**
    * Sets the value of form fields to the values supplied in the Get request.
    *
-   * @selector String or jQuery object - if String, it should be a selector pointing to a single form
-   * @query String or URI - a url
+   * @param {String | Object} selector a selector pointing to a single form, or a jQuery instance
+   * @param {String | URI} query url or instance of URI
    */
   mailtolink.fillFromQuery = function(selector, query) {
     if (!selector) {

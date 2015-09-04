@@ -115,7 +115,7 @@ module.exports = function(grunt) {
           directives: {
             sendmail_path: 'catchmail'
           },
-          silent: true, // messes up testrunner output otherwise
+          //silent: true, // messes up testrunner output otherwise
         }
       },
       examples: {
@@ -123,7 +123,7 @@ module.exports = function(grunt) {
           port: 1789,
           base: '.',
           directives: {
-            sendmail_path:'catchmail'
+            sendmail_path: 'catchmail'
           },
           open: 'examples/2-popup.html',
           livereload: 35749
@@ -156,7 +156,7 @@ module.exports = function(grunt) {
           sourceMapIncludeSources: true,
         },
         files: {
-          '<%= dist %>/mailtolink.min.js': ['mailtolink.js']
+          '<%= dist %>/dist/mailtolink.min.js': ['mailtolink.js']
         }
       },
       prod: {
